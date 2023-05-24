@@ -1,0 +1,17 @@
+.activation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 40px;
+}
+
+.activation div {
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.activation a {
+    width: fit-content;
+    margin-top: 20px;
+}
