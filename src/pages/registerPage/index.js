@@ -25,6 +25,9 @@ function RegisterPage() {
   const [registerState, setRegisterState] = useState("registering");
   const navigate = useNavigate();
 
+
+  // Handle the Register 
+
   const submitHandler = (e) => {
     e.preventDefault();
     setRegisterState("loading");
@@ -38,9 +41,15 @@ function RegisterPage() {
       password2: e.target.password2.value,
     };
 
+   const phoneNumber = `+${phone}`;
+
     agent.Auth.register(registerData)
       .then((res) => {
         console.log(res.data);
+        return agent.Auth.validatePhone(phoneNumber);
+      })
+      .then((additionalRes) => {
+        console.log(additionalRes.data);
         // alert("Please check your email to activate your account");
         setRegisterState("OTP");
       })
@@ -51,6 +60,7 @@ function RegisterPage() {
       });
   };
 
+  // Main Layout
   return (
     <Container component="main" maxWidth="xs">
       <div className="login">

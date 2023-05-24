@@ -7,7 +7,11 @@ function OTP({ setRegisterState }) {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    agent.Auth.otp(e.target.otp.value)
+    const otp = {
+      otp: e.target.otp.value,
+    };
+
+    agent.Auth.otp(otp)
       .then((res) => {
         console.log(res.data);
         setRegisterState("success");

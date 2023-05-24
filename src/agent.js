@@ -19,7 +19,36 @@ const tokenPlugin = (token) => {
 
 const Auth = {
   // getUser: (token) => instance.post("/api/user/login/", tokenPlugin(token)),
-  register: (registerData) => instance.post("/api/user/register/", registerData),
+  
+  // register: (registerData) => instance.post("/api/user/register/", registerData),
+  register: async (registerData) => {
+    try{
+      const response = await instance.post("/api/user/register/", registerData);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+  validatePhone: async (phoneNumber) => {
+    try {
+      const response = await instance.post(
+        "/api/user/phone_validation/",
+        { phone : phoneNumber },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Validation Part Executed !")
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+
+
   // login: (loginData) => instance.post("/api/user/login/", loginData),
   login: async (loginData) => {
     try {
@@ -33,17 +62,26 @@ const Auth = {
       throw error;
     }
   },
+  
   // otp: (code) => instance.post("/api/user/verify_otp/", { otp: code }),
-  otp: async (code) => {
+  otp: async (otp) => {
     try {
-      const response = await instance.post("/api/user/verify_otp/", { otp: code });
+      const response = await instance.post(
+        "/api/user/verify_otp/",
+        { otp: otp },
+        {
+          headers: {
+            "X-Cookie": document.cookie,
+          },
+        }
+      );
       // Handle the response or extract data if needed
       console.log(response);
       return response;
     } catch (error) {
       throw error;
     }
-  },
+  },  
   
   activate: (uid, token) =>
     instance.post("/auth/users/activation/", { uid, token }),
