@@ -1,4 +1,4 @@
-# Frontend Farm
+# Warehouse
 
 This is the frontend client for the farm app of Qzense Labs made using React.
 
